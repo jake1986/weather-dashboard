@@ -24,6 +24,16 @@ $(document).ready(function () {
 
     });
 
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+        console.log(response);
+
+        
+        
+    });
+
     // var cities = "Richmond";
 
     var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=Richmond&appid=2c91858cdc5732c71063ad682162dea9";
@@ -38,6 +48,8 @@ $(document).ready(function () {
         var row = $("<div class=\"row\">");
         forecast5.append(row);
         
+        
+       
         for (var i = 0; i < response.list.length; i++) {
         
             if (response.list[i].dt_txt.indexOf("18:00:00") !== -1) {
@@ -50,11 +62,15 @@ $(document).ready(function () {
                 var cardTitle = $("<h5>").addClass("card-title");
                 var temp = $("<p>").addClass("temp").text("Temperature: " + response.list[i].main.temp);
                 var humid = $("<p>").addClass("humid").text("Humidity: " + response.list[i].main.humidity);
+                var iconcode = response.list[i].weather[0].icon;
+                var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+                var weather = $("<img>").addClass("weather").attr("src", iconurl);
                 cardTitle.text(response.list[i].dt_txt);
                 var pOne = $("<p>").addClass("card-text"); 
-                cardBody.append(cardTitle, pOne, temp, humid);
+                cardBody.append(cardTitle, pOne, weather, temp, humid);
                 card.append(cardBody);
                 forecast5.append(card);
+                forecast5.append(row);
                 forecast5.append(column);
             }
             

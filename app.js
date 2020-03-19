@@ -7,8 +7,8 @@ $(document).ready(function () {
         event.preventDefault();
         var cityInput = $(".city-input").val();
         console.log(cityInput);
-        var day = $(".day");
-        day.text(cityInput);
+        var cityData = $(".city-data");
+        cityData.text(cityInput);
 
         var newCity = $(".newCity");
         var cityInput = $(".city-input").val();

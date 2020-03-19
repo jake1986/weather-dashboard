@@ -24,13 +24,24 @@ $(document).ready(function () {
 
     });
 
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=Richmond&appid=2c91858cdc5732c71063ad682162dea9"
+
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function (response) {
         console.log(response);
 
-        
+        var cityData = $(".city-data");
+        cityData.text(response.name);
+        var iconcode = response.weather[0].icon;
+        var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+        var sideIcon = $(".sideIcon").attr("src", iconurl);
+        sideIcon.append(iconurl);
+        var temp = $(".temp").text("Temperature: " + response.main.temp);
+        cityData.append(temp, humid, windSpeed);
+        var humid = $(".humidity").text("Humidty: " + response.main.humidity);
+        var windSpeed = $(".wind-speed").text("Wind Speed: " + response.wind.speed);
         
     });
 

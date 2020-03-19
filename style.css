@@ -12,15 +12,17 @@
 }
 
 .container-main {
-    width: 60%;
+    width: 65%;
     height: 300px;
     background-color: red;
+    margin-left: 12px;
     float: left;
 }
 
 .container-footer {
-    width: 60%;
+    width: 65%;
     height: 300px;
     background-color: orange;
+    margin-left: 12px;
     float: left;
 }

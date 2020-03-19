@@ -38,8 +38,6 @@ $(document).ready(function () {
         var row = $("<div class=\"row\">");
         forecast5.append(row);
         
-        
-        
         for (var i = 0; i < response.list.length; i++) {
         
             if (response.list[i].dt_txt.indexOf("18:00:00") !== -1) {
@@ -48,6 +46,7 @@ $(document).ready(function () {
                 var column = $("<div class=\"col-md-2\">");
                 var card = $("<div>").addClass("card");
                 var cardBody = $("<div>").addClass("card-body");
+                // cardBody.attr("width", "20%");
                 var cardTitle = $("<h5>").addClass("card-title");
                 var temp = $("<p>").addClass("temp").text("Temperature: " + response.list[i].main.temp);
                 var humid = $("<p>").addClass("humid").text("Humidity: " + response.list[i].main.humidity);
@@ -81,5 +80,21 @@ $(document).ready(function () {
     // console.log(makeEvent8);
 
 });
+
+    // <div class="card" style="width: 18rem;">
+    //     <div class="card-body">
+    //         <h5 class="card-title">City</h5>
+    //         <p class="card-text">hello world</p>
+    //     </div>
+    // </div>
+
+
+    // localStorage.setItem("makeEvent-8", makeEvent8);
+    // localStorage.setItem("printEvent-8", makeEvent8);
+    // var makeEvent8 = localStorage.getItem("makeEvent-8");
+    // console.log(makeEvent8);
+
+
+
 
 

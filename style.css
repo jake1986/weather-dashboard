@@ -7,7 +7,7 @@
 .container-aside {
     width: 30%;
     height: 790px;
-    background-color: blue;
+    background-color: lightgrey;
     float: left;
 }
 
@@ -16,6 +16,7 @@
     height: 300px;
     /* background-color: red; */
     border: 1px solid grey;
+    border-radius: 10px;
     margin-left: 12px;
     float: left;
 }
@@ -28,4 +29,12 @@
     /* border: 1px solid grey; */
     margin-left: 12px;
     float: left;
+}
+
+.city-input {
+    margin-left: 5px;
+}
+
+.search-city {
+    margin-left: 5px;
 }

@@ -33,15 +33,16 @@ $(document).ready(function () {
         console.log(response);
 
         var cityData = $(".city-data");
+        cityData.attr("style", "margin-left: 5px;");
         cityData.text(response.name);
         var iconcode = response.weather[0].icon;
         var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
         var sideIcon = $(".sideIcon").attr("src", iconurl);
         sideIcon.append(iconurl);
-        var temp = $(".temp").text("Temperature: " + response.main.temp);
-        cityData.append(temp, humid, windSpeed);
-        var humid = $(".humidity").text("Humidty: " + response.main.humidity);
-        var windSpeed = $(".wind-speed").text("Wind Speed: " + response.wind.speed);
+        var temp = $(".temp").attr("style", "margin-left: 5px;").text("Temperature: " + response.main.temp);
+        cityData.append(humid, windSpeed);
+        var humid = $(".humidity").attr("style", "margin-left: 5px;").text("Humidty: " + response.main.humidity);
+        var windSpeed = $(".wind-speed").attr("style", "margin-left: 5px;").text("Wind Speed: " + response.wind.speed);
         
     });
 

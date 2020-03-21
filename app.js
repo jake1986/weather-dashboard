@@ -1,10 +1,11 @@
 $(document).ready(function () {
 
-    // Change button to ID
-    var searchBtn = $(".searchBtn");
-    // var newCity = $(".newCity");
+    
+    var searchBtn = $("#searchBtn");
+    
 
     searchBtn.on("click", function (event) {
+        
         event.preventDefault();
         var cityInput = $(".city-input").val();
         console.log(cityInput);
@@ -22,17 +23,40 @@ $(document).ready(function () {
 
             var cityData = $(".city-data");
             cityData.attr("style", "margin-left: 5px;");
-            cityData.text(response.name);
+            var currentDate = new Date();
+            var convertDate = currentDate.toLocaleDateString();
+            cityData.text(response.name + " " + "(" + convertDate + ")");
             var iconcode = response.weather[0].icon;
             var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
             var sideIcon = $(".sideIcon").attr("src", iconurl);
             sideIcon.append(iconurl);
-            var temp = $(".temp").attr("style", "margin-left: 5px;").text("Temperature: " + response.main.temp + " F");
+            var farenheit1 = (response.main.temp - 273.15) * 1.80 +32;
+            farenheit1 = Math.floor(farenheit1);
+            var temp = $(".temp").attr("style", "margin-left: 5px;").text("Temperature: " + farenheit1 + " F");
             cityData.append(humid, windSpeed);
             var humid = $(".humidity").attr("style", "margin-left: 5px;").text("Humidty: " + response.main.humidity + " %");
             var windSpeed = $(".wind-speed").attr("style", "margin-left: 5px;").text("Wind Speed: " + response.wind.speed + " MPH");
-
+            var lon1 = response.coord.lon;
+            var lat1 = response.coord.lat;
+        uvIndexVal(lon1, lat1);
         });
+
+
+        function uvIndexVal(lon, lat) {
+          
+        var uvQueryURL = "http://api.openweathermap.org/data/2.5/uvi?appid=2c91858cdc5732c71063ad682162dea9&lat=" + lat + "&lon=" + lon;
+            $.ajax({
+                url: uvQueryURL,
+                method: "GET"
+            }).then(function (response) {
+                console.log(response);
+                var uvIndex = $(".uv-index");
+                var indexVal = response.value;
+                uvIndex.text("UV Index: " + indexVal);
+            });
+
+        
+        }
 
         var fiveDayQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityInput + "&appid=2c91858cdc5732c71063ad682162dea9";
 
@@ -53,12 +77,14 @@ $(document).ready(function () {
                 if (response.list[i].dt_txt.indexOf("18:00:00") !== -1) {
 
 
-                    var column = $("<div class=\"col-md-2\">");
+                    var column = $("<div class=\"col-md-2.5\">");
                     var card = $("<div>").addClass("card");
-                    var cardBody = $("<div>").addClass("card-body").attr("style", "background: lightblue;")
+                    var cardBody = $("<div>").addClass("card-body bg-primary bodyWidth").attr("style", "background: lightblue;")
                     // cardBody.attr("width", "20%");
                     var cardTitle = $("<h5>").addClass("card-title");
-                    var temp = $("<p>").addClass("temp").text("Temperature: " + response.list[i].main.temp + " F");
+                    var farenheit = (response.list[i].main.temp - 273.15) * 1.80 +32;
+                    farenheit = Math.floor(farenheit);
+                    var temp = $("<p>").addClass("temp").text("Temperature: " + farenheit + " F");
                     var humid = $("<p>").addClass("humid").text("Humidity: " + response.list[i].main.humidity + " %");
                     var iconcode = response.list[i].weather[0].icon;
                     var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
@@ -72,24 +98,26 @@ $(document).ready(function () {
                     var pOne = $("<p>").addClass("card-text");
                     cardBody.append(cardTitle, pOne, weather, temp, humid);
                     card.append(cardBody);
-                    forecast5.append(card);
-                    forecast5.append(row);
-                    forecast5.append(column);
+                    column.append(card);
+                    row.append(column);
+                    
                 }
 
             }
-
-
-
-
 
         });
 
         var newCity = $(".newCity");
         var cityInput = $(".city-input").val();
-        var li = $("<li>").text(cityInput);
+        var li = $("<li>").attr("style", "list-style-type: none;").text(cityInput);
         newCity.append(li);
-        // newCity.text(cityInput);
+
+        li.on("click", function(event) {
+            event.preventDefault();
+            console.log("clicked");
+            cityData.append
+        });
+        
 
 
         localStorage.setItem("city-input", cityInput);
@@ -99,43 +127,11 @@ $(document).ready(function () {
 
 
 
-    });
-
-    // var cityInput = $(".city-input").val();
-
-
-
-    // var cities = "Richmond";
-
-
-
-    // <div class="card" style="width: 18rem;">
-    //     <div class="card-body">
-    //         <h5 class="card-title">City</h5>
-    //         <p class="card-text">hello world</p>
-    //     </div>
-    // </div>
-
-
-    // localStorage.setItem("makeEvent-8", makeEvent8);
-    // localStorage.setItem("printEvent-8", makeEvent8);
-    // var makeEvent8 = localStorage.getItem("makeEvent-8");
-    // console.log(makeEvent8);
+    });  
 
 });
 
-    // <div class="card" style="width: 18rem;">
-    //     <div class="card-body">
-    //         <h5 class="card-title">City</h5>
-    //         <p class="card-text">hello world</p>
-    //     </div>
-    // </div>
-
-
-    // localStorage.setItem("makeEvent-8", makeEvent8);
-    // localStorage.setItem("printEvent-8", makeEvent8);
-    // var makeEvent8 = localStorage.getItem("makeEvent-8");
-    // console.log(makeEvent8);
+  
 
 
 
